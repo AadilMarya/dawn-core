@@ -50,6 +50,12 @@ pip install "dawn-core[openai]"     # or [anthropic], [google], [ollama], [all]
 
 Requires Python 3.11+.
 
+From a checkout of the repository:
+
+```bash
+pip install "dawn-core[openai] @ git+https://github.com/AadilMarya/dawn-core.git#subdirectory=dawn_core"
+```
+
 ### Install the Remote Script
 
 DAWN Core talks to Live through the `DAWN` control surface. Install it once:

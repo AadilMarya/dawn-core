@@ -35,6 +35,15 @@ Provider SDKs are extras:
 pip install "dawn-core[openai]"      # or anthropic, google, ollama, all
 ```
 
+## `No matching distribution found for dawn-core`
+
+The release is not on PyPI yet, or the index is stale. Install from the repository
+instead:
+
+```bash
+pip install "dawn-core[openai] @ git+https://github.com/AadilMarya/dawn-core.git#subdirectory=dawn_core"
+```
+
 ## `address is not in the DAWN catalog`
 
 `catalog_call` only accepts exact catalog addresses. Inspect the catalog:
