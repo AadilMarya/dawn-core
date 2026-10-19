@@ -4,17 +4,25 @@ Get a music agent talking to Ableton Live in five minutes.
 
 ## 1. Install
 
+Requires Python 3.11+.
+
 ```bash
-pip install "dawn-core[openai]"
+pip install \
+  "dawn-osc @ https://github.com/AadilMarya/dawn-core/releases/download/v0.1.0/dawn_osc-0.1.0-py3-none-any.whl" \
+  "dawn-core[openai] @ https://github.com/AadilMarya/dawn-core/releases/download/v0.1.0/dawn_core-0.1.0-py3-none-any.whl"
 ```
 
 Use `[anthropic]`, `[google]`, `[ollama]` or `[all]` for other providers. The base install
 carries the agent, the tools and the transport; the provider SDK is an extra.
+`dawn-core` and `dawn-osc` are two distributions and the agent depends on the transport,
+so install both.
 
-From a checkout of the repository:
+The release is not on PyPI yet. From a checkout of the repository:
 
 ```bash
-pip install "dawn-core[openai] @ git+https://github.com/AadilMarya/dawn-core.git#subdirectory=dawn_core"
+pip install \
+  "dawn-osc @ git+https://github.com/AadilMarya/dawn-core.git#subdirectory=dawn_osc" \
+  "dawn-core[openai] @ git+https://github.com/AadilMarya/dawn-core.git#subdirectory=dawn_core"
 ```
 
 ## 2. Install the Remote Script
