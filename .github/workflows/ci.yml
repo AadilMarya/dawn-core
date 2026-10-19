@@ -1,0 +1,67 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Python ${{ matrix.python }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Sync
+        run: uv sync --all-packages --extra dev
+      - name: Lint
+        run: |
+          uv run ruff check .
+          uv run ruff format --check .
+      - name: Types
+        run: uv run --with mypy mypy dawn_core/src
+      - name: Catalog freshness
+        run: uv run python -m dawn_core._gen_catalog --check
+      - name: Tests
+        run: uv run pytest
+      - name: Build
+        run: uv build --all-packages --out-dir dist
+      - name: Verify the wheels in a clean environment
+        run: |
+          uv venv /tmp/verify
+          uv pip install --python /tmp/verify/bin/python dist/dawn_osc-*.whl dist/dawn_core-*.whl
+          /tmp/verify/bin/python - <<'PY'
+          import importlib.metadata as metadata
+
+          import dawn_core
+          import dawn_osc
+
+          installed = {d.metadata["Name"].lower() for d in metadata.distributions()}
+          assert "dawn-c" not in installed
+          assert "mcp" not in installed
+          assert not [e for e in metadata.entry_points(group="console_scripts") if e.name == "dawn-core"]
+          assert dawn_core.__version__ == metadata.version("dawn-core")
+          prompt_dir = __import__("pathlib").Path(dawn_core.__file__).parent / "prompt"
+          for section in ("persona", "production", "arrangement", "mixing", "sound_design", "ableton"):
+              assert (prompt_dir / f"{section}.md").is_file()
+          print("wheel install verified")
+          PY
+
+  harness:
+    name: Human harness (macOS)
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - name: Build, verify and install the Remote Script
+        run: ./test.sh -y --no-launch --dest "$RUNNER_TEMP/Remote Scripts"

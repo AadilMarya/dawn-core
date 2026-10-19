@@ -1,0 +1,24 @@
+name: Feature request
+description: A tool, a prompt section, or an integration
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: The musical problem
+      description: What are you trying to do in Live, and what blocks it?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed tool or change
+      description: Name, arguments, risk class, and the OSC address if you know it.
+  - type: dropdown
+    id: risk
+    attributes:
+      label: Risk class
+      options:
+        - read
+        - write
+        - destructive
