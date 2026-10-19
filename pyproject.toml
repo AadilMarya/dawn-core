@@ -1,0 +1,25 @@
+# Workspace root. Each member is an independently installable distribution.
+[tool.uv.workspace]
+members = ["dawn_osc"]
+
+[tool.uv.sources]
+dawn-osc = { workspace = true }
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W", "UP"]
+ignore = ["E501"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["dawn_core", "dawn_osc"]
+
+[tool.ruff.lint.per-file-ignores]
+"**/__init__.py" = ["F401"]
+"dawn_osc/src/dawn_osc/remote_script/**" = ["UP", "E402", "E722", "W291", "F401", "I001"]
+"dawn_osc/src/dawn_osc/remote_script/DAWN/pythonosc/**" = ["ALL"]
+
+[tool.ruff.format]
+exclude = ["dawn_osc/src/dawn_osc/remote_script/**"]

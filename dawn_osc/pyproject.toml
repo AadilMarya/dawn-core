@@ -1,0 +1,30 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "dawn-osc"
+version = "0.1.0"
+description = "Authenticated OSC transport and Remote Script for Ableton Live"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{name = "Aadil Marya"}]
+license = "Apache-2.0"
+license-files = ["LICENSE", "THIRD_PARTY_NOTICES.md"]
+dependencies = [
+    "loguru>=0.7.0",
+    "python-osc>=1.8.3",
+]
+
+[project.urls]
+Repository = "https://github.com/AadilMarya/dawn-core"
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "pytest-asyncio>=0.23"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/dawn_osc"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
