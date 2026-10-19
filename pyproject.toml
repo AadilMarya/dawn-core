@@ -1,6 +1,6 @@
 # Workspace root. Each member is an independently installable distribution.
 [tool.uv.workspace]
-members = ["dawn_osc"]
+members = ["dawn_osc", "dawn_core"]
 
 [tool.uv.sources]
 dawn-osc = { workspace = true }
