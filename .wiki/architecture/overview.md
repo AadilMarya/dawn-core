@@ -36,6 +36,10 @@ app is a host that embeds the library.
   public at `github.com/AadilMarya/dawn-core`; the release is tagged `v0.1.0`
   (2026-10-19). The open surface is a fork of the upstream OSC control surface; the
   private surface lives in the private DAWN app repo, not here.
+- Remotes: `origin` is the public repository, `internal` is the private one that keeps
+  the full history and the private surface. The public history shares no ancestor with
+  the internal one. A local `pre-push` hook refuses to send the private surface to the
+  public remote, so `git push --all origin` cannot leak it.
 
 ## Protocol numbers (three, on purpose)
 
