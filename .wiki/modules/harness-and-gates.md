@@ -58,6 +58,21 @@ uv build --all-packages
   changelog section and creates the GitHub release with the artifacts attached.
 - PyPI is **not** published by a tag. `publish.yml` is manually triggered and takes the
   tag as an input, so a release cannot reach PyPI before the trusted publisher exists.
+- **PyPI is deferred.** The `pypi` environment exists on the repository with the owner as
+  its required reviewer, and `publish.yml` is ready, but no trusted publisher is
+  registered on PyPI, so the upload would be rejected. `dawn-core` and `dawn-osc` are
+  both unclaimed on PyPI.
+- Until then, the install path is the release wheels:
+
+  ```bash
+  pip install \
+    "dawn-osc @ https://github.com/AadilMarya/dawn-core/releases/download/v0.1.0/dawn_osc-0.1.0-py3-none-any.whl" \
+    "dawn-core[openai] @ https://github.com/AadilMarya/dawn-core/releases/download/v0.1.0/dawn_core-0.1.0-py3-none-any.whl"
+  ```
+
+  Both distributions are named because the agent depends on the transport. Installing
+  `dawn-core` alone fails: pip cannot resolve `dawn-osc` from an index that has not
+  published it.
 - The public baseline is 0.1.0; the internal repository is not a publish target.
 
 ## Scan constraints that break the suite (learned the hard way)

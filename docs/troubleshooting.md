@@ -32,16 +32,30 @@ Restart Live afterwards.
 Provider SDKs are extras:
 
 ```bash
-pip install "dawn-core[openai]"      # or anthropic, google, ollama, all
+pip install \
+  "dawn-osc @ https://github.com/AadilMarya/dawn-core/releases/download/v0.1.0/dawn_osc-0.1.0-py3-none-any.whl" \
+  "dawn-core[openai] @ https://github.com/AadilMarya/dawn-core/releases/download/v0.1.0/dawn_core-0.1.0-py3-none-any.whl"
 ```
+
+Swap `[openai]` for `[anthropic]`, `[google]`, `[ollama]` or `[all]`.
 
 ## `No matching distribution found for dawn-core`
 
-The release is not on PyPI yet, or the index is stale. Install from the repository
-instead:
+The release is not on PyPI yet, so install the published wheels instead — both of them,
+because the agent depends on the transport:
 
 ```bash
-pip install "dawn-core[openai] @ git+https://github.com/AadilMarya/dawn-core.git#subdirectory=dawn_core"
+pip install \
+  "dawn-osc @ https://github.com/AadilMarya/dawn-core/releases/download/v0.1.0/dawn_osc-0.1.0-py3-none-any.whl" \
+  "dawn-core @ https://github.com/AadilMarya/dawn-core/releases/download/v0.1.0/dawn_core-0.1.0-py3-none-any.whl"
+```
+
+From a checkout of the repository:
+
+```bash
+pip install \
+  "dawn-osc @ git+https://github.com/AadilMarya/dawn-core.git#subdirectory=dawn_osc" \
+  "dawn-core @ git+https://github.com/AadilMarya/dawn-core.git#subdirectory=dawn_core"
 ```
 
 ## `address is not in the DAWN catalog`

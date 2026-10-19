@@ -9,8 +9,10 @@ Authenticated OSC transport for Ableton Live, plus the DAWN Remote Script that r
 
 ## Install
 
+The release is not on PyPI yet. Install the published wheel:
+
 ```bash
-pip install dawn-osc
+pip install "dawn-osc @ https://github.com/AadilMarya/dawn-core/releases/download/v0.1.0/dawn_osc-0.1.0-py3-none-any.whl"
 ```
 
 ## Install the Remote Script

@@ -44,16 +44,23 @@ Every write is read back. Results are one of `OK`, `MISMATCH`, `SENT, NOT VERIFI
 
 ## Install
 
-```bash
-pip install "dawn-core[openai]"     # or [anthropic], [google], [ollama], [all]
-```
-
 Requires Python 3.11+.
 
-From a checkout of the repository:
+```bash
+pip install \
+  "dawn-osc @ https://github.com/AadilMarya/dawn-core/releases/download/v0.1.0/dawn_osc-0.1.0-py3-none-any.whl" \
+  "dawn-core[openai] @ https://github.com/AadilMarya/dawn-core/releases/download/v0.1.0/dawn_core-0.1.0-py3-none-any.whl"
+```
+
+`dawn-core` and `dawn-osc` are two distributions, and the agent depends on the transport —
+install both. Swap `[openai]` for `[anthropic]`, `[google]`, `[ollama]` or `[all]`.
+
+The release is not on PyPI yet. From a checkout of the repository:
 
 ```bash
-pip install "dawn-core[openai] @ git+https://github.com/AadilMarya/dawn-core.git#subdirectory=dawn_core"
+pip install \
+  "dawn-osc @ git+https://github.com/AadilMarya/dawn-core.git#subdirectory=dawn_osc" \
+  "dawn-core[openai] @ git+https://github.com/AadilMarya/dawn-core.git#subdirectory=dawn_core"
 ```
 
 ### Install the Remote Script
