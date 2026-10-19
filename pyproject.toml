@@ -5,6 +5,11 @@ members = ["dawn_osc", "dawn_core"]
 [tool.uv.sources]
 dawn-osc = { workspace = true }
 
+# The toolchain the gates run with. Pinned here so CI and a fresh checkout use
+# the same linter instead of whatever happens to be on the machine's PATH.
+[dependency-groups]
+dev = ["pytest>=8", "pytest-asyncio>=0.23", "ruff>=0.16,<0.17", "mypy>=1.11,<2"]
+
 [tool.ruff]
 line-length = 100
 target-version = "py311"

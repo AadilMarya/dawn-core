@@ -34,14 +34,18 @@ uv sync --all-packages --extra dev
 uv run pytest                                      # ~264 tests
 uv run ruff check .
 uv run ruff format --check .
-uv run --with mypy mypy dawn_core/src         # mypy is not a project dependency
-uv run --with mypy mypy dawn_osc/src/dawn_osc/transport.py \
+uv run mypy dawn_core/src
+uv run mypy dawn_osc/src/dawn_osc/transport.py \
     dawn_osc/src/dawn_osc/security.py dawn_osc/src/dawn_osc/__init__.py
 uv run python -m dawn_core._gen_catalog --check
 uv build --all-packages
 ./test.sh -y --no-launch --dest <throwaway>
 ```
 
+- The toolchain lives in the root `dev` dependency group (`pytest`, `ruff`, `mypy`), so
+  CI and a fresh checkout lint with the same pinned versions instead of whatever is on
+  the machine's PATH. A dependency group is not a runtime dependency: neither
+  distribution ships it.
 - mypy scope: hand-written packages only. `remote_script/DAWN` imports `Live` (exists only
   inside Live) and is excluded from mypy.
 - ruff excludes `remote_script/**` (formatting) and the vendored OSC runtime (everything).
