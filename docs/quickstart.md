@@ -11,6 +11,12 @@ pip install "dawn-core[openai]"
 Use `[anthropic]`, `[google]`, `[ollama]` or `[all]` for other providers. The base install
 carries the agent, the tools and the transport; the provider SDK is an extra.
 
+From a checkout of the repository:
+
+```bash
+pip install "dawn-core[openai] @ git+https://github.com/AadilMarya/dawn-core.git#subdirectory=dawn_core"
+```
+
 ## 2. Install the Remote Script
 
 ```python
